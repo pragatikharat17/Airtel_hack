@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-airtel-charcoal text-white font-sans;
+    -webkit-font-smoothing: antialiased;
+  }
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .label-badge {
+    @apply text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded;
+  }
+  .label-dataset   { @apply label-badge bg-blue-900 text-blue-200; }
+  .label-assumption{ @apply label-badge bg-purple-900 text-purple-200; }
+  .label-model     { @apply label-badge bg-amber-900 text-amber-200; }
+  .label-target    { @apply label-badge bg-green-900 text-green-200; }
+  .label-simulation{ @apply label-badge bg-orange-800 text-orange-200 animate-pulse; }
+
+  .card {
+    @apply bg-airtel-charcoal-mid border border-airtel-charcoal-light rounded-lg p-4;
+  }
+
+  .btn-primary {
+    @apply bg-airtel-red hover:bg-airtel-red-dark text-white font-semibold
+           px-4 py-2 rounded-lg transition-colors duration-150 cursor-pointer;
+  }
+
+  .btn-ghost {
+    @apply border border-airtel-charcoal-light hover:bg-airtel-charcoal-light
+           text-gray-300 font-medium px-3 py-1.5 rounded-lg transition-colors duration-150 cursor-pointer;
+  }
+
+  .sim-banner {
+    @apply bg-orange-900/40 border border-orange-700 text-orange-300
+           text-xs px-3 py-1.5 rounded flex items-center gap-2;
+  }
+
+  .disclaimer-box {
+    @apply bg-blue-950/40 border border-blue-700 text-blue-300
+           text-xs px-3 py-2 rounded;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #1a1a2e; }
+::-webkit-scrollbar-thumb { background: #0f3460; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #E40000; }
