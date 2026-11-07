@@ -44,11 +44,10 @@ export function OverviewPage() {
   ]
 
   const cellData = [
-    { name: '5G cells needed', value: cap.cells_needed_5g, label: 'MODEL' },
-    { name: '5G existing', value: cap.existing_5g_cells ?? 12, label: 'DATASET' },
-    { name: '4G cells needed', value: cap.cells_needed_4g, label: 'MODEL' },
-    { name: '4G existing', value: cap.existing_4g_cells ?? 20, label: 'DATASET' },
-  ]
+  { name: '5G cells needed', value: cap.cells_needed_5g, label: 'MODEL' },
+  { name: '4G cells needed', value: cap.cells_needed_4g, label: 'MODEL' },
+]
+  
 
   const budgetPie = [
     { name: 'Committed', value: data.budget_summary.committed_lakh, fill: '#E40000' },

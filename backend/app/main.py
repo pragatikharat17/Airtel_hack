@@ -47,6 +47,8 @@ from .budget_calculator import (
 )
 from .prediction_service import assess_risk, fit_success_model
 from .orchestrator_service import run_orchestrator, TRIGGER_RULES, SIDE_EFFECTS
+from .crowd_simulator import simulate_crowd
+from .failure_cascade import simulate_failure_cascade
 from .schemas import (
     BudgetSimulateRequest,
     CongestionPredictRequest,
@@ -396,3 +398,51 @@ def budget_simulate(req: BudgetSimulateRequest):
         "fibre_note": result.fibre_note,
         "label": "ASSUMPTION",
     }
+@app.post("/api/digital-twin/crowd-simulation")
+def crowd_simulation(req: Dict[str, Any]):
+    crowd_size = int(req.get("crowd_size", 100000))
+    phase = req.get("phase", "Innings break")
+
+    airtel_share_pct = float(req.get("airtel_share_pct", 40))
+    active_user_pct = float(req.get("active_user_pct", 18))
+    avg_traffic_mbps = float(req.get("avg_traffic_mbps", 1.5))
+
+    if crowd_size <= 0:
+        raise HTTPException(400, "Crowd size must be greater than zero.")
+
+    sites = get_sites_meta()
+
+    return simulate_crowd(
+        sites=sites,
+        crowd_size=crowd_size,
+        phase=phase,
+        airtel_share_pct=airtel_share_pct,
+        active_user_pct=active_user_pct,
+        avg_traffic_mbps=avg_traffic_mbps,
+    )
+
+@app.post("/api/predict/failure-cascade")
+def predict_failure_cascade(req: Dict[str, Any]):
+    try:
+        failed_site = req.get("failed_site", "M5")
+        phase = req.get("phase", "Innings break")
+
+        crowd_size = int(req.get("crowd_size", 100000))
+        airtel_share_pct = float(req.get("airtel_share_pct", 40))
+        active_user_pct = float(req.get("active_user_pct", 18))
+        avg_traffic_mbps = float(req.get("avg_traffic_mbps", 1.5))
+
+        sites = get_sites_meta()
+
+        return simulate_failure_cascade(
+            sites=sites,
+            failed_site=failed_site,
+            phase=phase,
+            crowd_size=crowd_size,
+            airtel_share_pct=airtel_share_pct,
+            active_user_pct=active_user_pct,
+            avg_traffic_mbps=avg_traffic_mbps,
+        )
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))

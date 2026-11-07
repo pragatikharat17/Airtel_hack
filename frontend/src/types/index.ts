@@ -178,3 +178,28 @@ export interface ImpactRow {
   meets_target: boolean | null
   direction: 'lower_is_better' | 'higher_is_better'
 }
+
+// ── Crowd Digital Twin Simulation ──────────────────────────────
+
+export interface CrowdSimulationSite {
+  site: string
+  baseline_radio_load_pct: number
+  added_backhaul_utilization_pct: number
+  traffic_gbps: number
+  backhaul_capacity_gbps: number
+  radio_risk: string
+  backhaul_risk: string
+  overall_risk: string
+}
+
+export interface CrowdSimulationResult {
+  crowd_size: number
+  airtel_users_estimated: number
+  active_users_estimated: number
+  total_demand_gbps: number
+  traffic_per_site_gbps: number
+  phase: string
+  sites: CrowdSimulationSite[]
+  label: string
+  assumptions: string[]
+}
